@@ -13,6 +13,7 @@ use stm32h7xx_hal::rcc::PllConfigStrategy;
 
 #[entry]
 fn main() -> ! {
+
     rtt_init_print!(NoBlockTrim);
     rprintln!("--> MAIN --");
 
@@ -59,12 +60,16 @@ fn main() -> ! {
     let vos = VoltageScale::Scale0; //may force higher? or just allow asserts to pass?
     let mut ccdr = rcc.freeze(vos, &dp.SYSCFG);
 
-    let gpioc = dp.GPIOC.split(&mut ccdr.ahb4);
-    let mut led = gpioc.pc0.into_push_pull_output();
+    // r,g,b = pc0, 1, 2 on OpenMV H7
+
+    let gpioc = dp.GPIOC.split(ccdr.peripheral.GPIOC);
+
+    let mut led = gpioc.pc1.into_push_pull_output();
 
     // Get the delay provider.
     let mut delay = cp.SYST.delay(ccdr.clocks);
 
+    
     loop {
         led.set_high().unwrap();
         delay.delay_ms(500_u16);

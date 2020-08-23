@@ -18,7 +18,7 @@ MEMORY
   AXISRAM : ORIGIN = 0x24000000, LENGTH = 512K
 
   /* Data tightly coupled memory */
-  DTCM  : ORIGIN = 0x20000000, LENGTH = 128K
+  /* DTCM  : ORIGIN = 0x20000000, LENGTH = 128K */
 
   /* reserve some flash for the preinstalled micropython bootloader? */
   BL_FLASH  : ORIGIN = 0x08000000, LENGTH = 256K
@@ -26,7 +26,8 @@ MEMORY
   FLASH  : ORIGIN = 0x8040000, LENGTH = 128K
   /* FLASH  : ORIGIN = 0x8000000, LENGTH = 1792K */
   /* use SRAM1 + SRAM2 for main RAM */
-  RAM    : ORIGIN = 0x30000000, LENGTH = 256K
+  /*RAM    : ORIGIN = 0x30000000, LENGTH = 256K*/
+  RAM    : ORIGIN = 0x20000000, LENGTH = 128K
 
   /* Instruction tightly coupled memory: used for stack */
   ITCM  : ORIGIN = 0x00000000, LENGTH = 64K
@@ -35,7 +36,7 @@ MEMORY
 
 /* The location of the stack can be overridden using the
    `_stack_start` symbol.  Place the stack at the end of RAM */
-_stack_start = ORIGIN(ITCM) + LENGTH(ITCM);
+_stack_start = ORIGIN(RAM) + LENGTH(RAM);
 
 /* The location of the .text section can be overridden using the
    `_stext` symbol.  By default it will place after .vector_table */
