@@ -58,7 +58,7 @@ fn main() -> ! {
 
     //vos defaults to Scale1 but needs to upgrade to Scale0 to boost to 480 MHz
     let vos = VoltageScale::Scale0; //may force higher? or just allow asserts to pass?
-    let mut ccdr = rcc.freeze(vos, &dp.SYSCFG);
+    let ccdr = rcc.freeze(vos, &dp.SYSCFG);
 
     // r,g,b = pc0, 1, 2 on OpenMV H7
 
@@ -69,7 +69,7 @@ fn main() -> ! {
     // Get the delay provider.
     let mut delay = cp.SYST.delay(ccdr.clocks);
 
-    
+
     loop {
         led.set_high().unwrap();
         delay.delay_ms(500_u16);
