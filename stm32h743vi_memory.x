@@ -35,7 +35,7 @@ MEMORY
 
 
 /* The location of the stack can be overridden using the
-   `_stack_start` symbol.  Place the stack at the end of RAM */
+   `_stack_start` symbol.  We use ITCM for stack */
 _stack_start = ORIGIN(ITCM) + LENGTH(ITCM);
 
 /* The location of the .text section can be overridden using the
